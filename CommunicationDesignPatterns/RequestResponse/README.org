@@ -63,7 +63,7 @@ examples of places that the request response model will not work are:
 To wrap up this section let's look at a real example of request/response in
 action:
 #+name: curl
-#+begin_src bash :results raw
+#+begin_src bash :results raw :exports both
   curl -v --trace out.txt http://google.com
 #+end_src
 
@@ -79,7 +79,7 @@ The document has moved
 The above ~curl~ command also about all of the trace information to
 =out.txt=. We can show the contents of that file with:
 #+name: cat
-#+begin_src bash :results raw
+#+begin_src bash :results raw :exports both
   cat out.txt
 #+end_src
 

@@ -6,3 +6,4 @@ chapter of [[https://www.udemy.com/course/fundamentals-of-backend-communications
 This chapter will go over different design patterns commonly seen in the
 industry for communication between applications:
 - 1. :: [[./RequestResponse/README.org][Request Response]]
+- 2. :: [[./SyncVsAsync/README.org][Synchronous Vs Asynchronous Workloads]]

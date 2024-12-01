@@ -1,0 +1,89 @@
+#+TITLE: Synchronous Vs Asynchronous Workloads
+
+Synchronous Vs Asynchronous can basically be boiled down to:
+"Can I work while waiting?". Synchronous and Asynchronous are both an answer to
+this question.
+
+With Synchronous the client and the server are in sync any given point whereas
+with asynchronous the client and server can be processing their things
+individually.
+
+Let's begin by looking at some examples of IO work:
+- Synchronous I/O
+  - Caller sends a request and blocks
+  - Caller cannot execute any code meanwhile
+  - Receiver responds, Caller unblocks
+  - Caller and Receiver are in "sync"
+  - Example of Synchronous I/O within an OS:
+    - Program asks OS to read from disk
+    - Program main thread is taken off of the CPU
+    - Read completes, program can resume execution
+- Asynchronous I/O
+  - Caller sends a request
+  - Caller can work until it gets a response
+  - Caller either:
+    - Checks if the response is ready (epoll)
+    - Receiver calls back when it's done (io_uring)
+    - Spins up a new thread that blocks
+  - Caller and receiver are not necessarily in sync
+  - Example of an Asynchronous call in an OS (NodeJS):
+    - Program spins up a secondary thread
+    - Secondary thread reads from disk, OS blocks it
+    - Main program still running and executing code
+    - Thread finish reading and calls back main thread
+
+Synchronous vs Asynchronous is Request Response:
+- Synchronicity is a client property
+- Most modern client libraries are asynchronous
+- For example: Clients send an HTTP request and do work
+
+Synchronous vs Asynchronous in real life:
+- In Synchronous communication the caller waits for a response from the
+  receiver.
+  - For example: Asking someone a question in a meeting
+- Asynchronous communication the response can come whenever. The Caller and
+  Receiver can do anything meanwhile
+  - For example: Waiting for an email response.
+
+Asynchronous workload is everywhere:
+- Asynchronous Programming (promises/futures)
+- Asynchronous backend processing
+- Asynchronous commits in Postgres
+- Asynchronous IO in Linux (epoll, io_uring)
+- Asynchronous replication
+- Asynchronous OS fsync (fs cache)
+
+Let's look at a demo now using NodeJS. In this director we have a text file
+called =test.txt= and two javascript programs. One is called =sync.js= and the
+other is fittingly called =async.js=. Both programs read the =test.txt= file and
+output the number 1, the number 2, and the contents of the text file.
+
+Let's run the =sync.js= and see how a synchronous workflow is blocked by reading
+the file:
+#+name: sync
+#+begin_src bash :results raw :exports both
+  node sync.js
+#+end_src
+
+Here we can see that we are not able to output =2= until after the file has been
+read:
+#+RESULTS: sync
+1
+Maker
+
+2
+
+Let's now run the =async.js= program and see what is output when we read the
+file asynchronously:
+#+name: async
+#+begin_src bash :results raw :exports both
+  node async.js
+#+end_src
+
+Here we can see that since we are reading the file asynchronously we are able to
+print 2 (our program continues) while the file is being read:
+#+RESULTS: async
+1
+2
+Maker
+
