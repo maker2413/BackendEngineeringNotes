@@ -1,0 +1,3 @@
+#+TITLE: Backend Engineering Notes
+
+These are just some notes I took while working through this [[https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/?kw=fundamentals+of+backend+eng&src=sac][Udemy Course]].
