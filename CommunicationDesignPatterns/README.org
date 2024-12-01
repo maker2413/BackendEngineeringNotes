@@ -1,0 +1,8 @@
+#+TITLE: Backend Communication Design Patterns
+
+This section contains my notes on the "Backend Communication Design Patterns"
+chapter of [[https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/?kw=fundamentals+of+backend+eng&src=sac][Fundamentals of Backend Engineering]] Course.
+
+This chapter will go over different design patterns commonly seen in the
+industry for communication between applications:
+- 1. :: [[./RequestResponse/README.org][Request Response]]
