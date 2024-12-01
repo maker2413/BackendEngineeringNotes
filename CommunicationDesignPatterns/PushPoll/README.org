@@ -1,0 +1,77 @@
+#+TITLE: Push & Polling
+
+We have seen that Request/Response isn't always ideal. For instance:
+- Client wants real time notification from backend
+  - A user just logged in
+  - A message is just received
+- Push model is good for certain cases
+
+A Push model workflow would look like this:
+- Client connects to a server
+- Server sends data to the client
+- Client doesn't have to request anything
+- Protocol must be bidirectional
+- Used by RabbitMQ
+
+Some pros and cons of the push model:
+- Pros
+  - Real time
+- Cons
+  - Clients must be online
+  - Clients might not be abled to handle response(s)
+  - Requires a bidirectional protocol
+  - Polling is preferred for light clients
+
+Before going further let's look at an example of a push notification. In this
+directory there is a ~push~ directory containing an =index.js= program. This is
+a server that can be started with ~node push/index.js~. This will start the
+server on port 8080. Once the server has been started you can open a web browser
+of your choice and open the console. You can then paste in the following for a
+simple client to connect to your server and send a hello message:
+#+begin_src javascript :results none
+  let ws = new WebSocket("ws://localhost:8080");
+  ws.onmessage = message => console.log('Received: ${message.data}');
+  ws.send("Hello! I'm client")
+#+end_src
+
+Now that we have gone over Push we will spend some time going over Polling. We
+will begin this topic by going over Short Polling. Short Polling is common when
+you have a request that is taking a while. "I'll check with you later" is how it
+can be thought of.
+
+Where request/response isn't ideal:
+- A request takes long time to process
+  - Upload a youtube video
+- The backend want to send notifications
+  - A user just logged in
+
+What is Short Polling?
+- Client sends a request
+- Server responds immediately with a handle
+- Server continues to process the request
+- Client uses that handle to check for status
+- Multiple "short" request response as polls
+
+Short Polling Pros and Cons
+- Pros
+  - Simple to build
+  - Good for long running requests
+  - Client can disconnect
+- Cons
+  - Too chatty
+  - Devours network bandwidth
+  - Wasted Backend resources
+
+Just like with the push model there is a sample program in the ~short-polling~
+directory found in this directory. This program can be run with:
+~node short-polling/index.js~. This will start the server and we can post to
+this server with ~curl~ using: ~curl -X POST http://localhost:8080/submit~. This
+will give us a job id for our request. We can then Poll the status of this
+request with:
+#+begin_src bash
+  # Use the id that the server gave us:
+  curl http://localhost:8080/checkstatus?jobId=job:<id>
+#+end_src
+
+When we curl ~checkstatus~ with our job id the server will return the current
+status percentage.
