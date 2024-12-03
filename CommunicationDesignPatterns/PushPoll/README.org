@@ -75,3 +75,40 @@ request with:
 
 When we curl ~checkstatus~ with our job id the server will return the current
 status percentage.
+
+The difference between short polling and long polling is such that with long
+polling the client sends the request to get a status asynchronously and the
+server just doesn't respond until the task is complete.
+
+Let's talk about where request/response and polling isn't ideal:
+- A request takes a long time to process
+  - Upload a youtube video
+- The backend wants to send notifications
+  - A user just logged in
+- Short Polling is good, but chatty
+- Meet long polling (Kafka uses it)
+
+What is Long Polling:
+- Client sends a request
+- Server responds immediately with a handle
+- Server continues to process the request
+- Client uses that handle to check for status
+- The server DOES not reply until it has the response
+- So we got a handle, we can disconnect and we are less chatty
+- Some variations have timeouts
+
+Just like with the short polling model there is a sample program in the
+~long-polling~ directory found in this directory. This program can be run with:
+~node long-polling/index.js~. This will start the server and we can post to
+this server with ~curl~ using: ~curl -X POST http://localhost:8080/submit~. This
+will give us a job id for our request. We can then Poll the status of this
+request with:
+#+begin_src bash
+  # Use the id that the server gave us:
+  curl http://localhost:8080/checkstatus?jobId=job:<id>
+#+end_src
+
+Unlike last time, this time when we curl the ~checkstatus~ endpoint we won't get
+a response until the server finishes process our job. If we called ~checkstatus~
+asynchronously in our client program we would be free to still process whatever
+we need to.

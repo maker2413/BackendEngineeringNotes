@@ -8,3 +8,6 @@ industry for communication between applications:
 - 1. :: [[./RequestResponse/README.org][Request Response]]
 - 2. :: [[./SyncVsAsync/README.org][Synchronous Vs Asynchronous Workloads]]
 - 3. :: [[./PushPoll/README.org][Push, Polling, & Long Pulling]]
+- 4. :: [[./ServerSentEvents/README.org][Server Sent Events]]
+- 5. :: [[./PubSub/README.org][Publish Subscribe]]
+- 6. :: [[./MultiplexingVsDemultiplexing/README.org][Multiplexing Vs Demultiplexing]]
