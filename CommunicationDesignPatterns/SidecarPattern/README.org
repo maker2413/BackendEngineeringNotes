@@ -1,0 +1,34 @@
+#+TITLE: Sidecar Pattern
+
+Changing the library is hard:
+- Once you use the library your app is entrenched
+- App & Library "should" be the same language
+- Changing the library require retesting
+- Breaking changes Backward compatibility
+- Adding features to the library is hard
+- Microservices suffer
+
+What if we delegate communication
+- Proxy communicate instead
+- Proxy has the rich library
+- Client has thin library (e.g. h1)
+- Meet Sidecar pattern
+- Each client must have a sidecar proxy
+
+Sidecar Examples:
+- Service Mesh Proxies
+  - Linkerd, Istio, Envoy
+- Sidecar Proxy Container
+- Must be Layer 7 Proxy
+
+Pros and Cons of Sidecar proxy
+- Pros
+  - Language Agnostic (polyglot)
+  - Protocol upgrade
+  - Security
+  - Tracing and Monitoring
+  - Service Discovery
+  - Caching
+- Cons
+  - Complexity
+  - Latency

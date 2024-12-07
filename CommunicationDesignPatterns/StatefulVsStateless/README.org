@@ -1,0 +1,39 @@
+#+TITLE: Stateful Vs Stateless
+
+Stateful:
+- Stores state about clients in its memory
+- Depends on the information being there
+
+Stateless:
+- Client is responsible to "transfer the state" with every request
+- May store but can safely lost it
+
+Stateless Backends:
+- Stateless backends can still store data somewhere else
+- Can you restart the backend during idle time while the client workflow
+  continues to work?
+
+What makes a backend stateless?
+- Stateless backends can store state somewhere else (database)
+- The backend remains stateless but the system is stateful
+- Can you restart the backend during idle time and the client workflow will
+  continue to work?
+
+Stateless vs Stateful protocols:
+- The protocols can be designed to store state
+- TCP is stateful
+  - Sequences, Connection file descriptor
+- UDP is stateless
+  - DNS send queryID in UDP to identify queries
+  - QUIC sends connectionID to identify connection
+- You can build a stateless protocol on top of a stateful one and vise versa
+- HTTP on top of TCP
+- If TCP breaks, HTTP blindly create another one
+- QUIC on top of UDP
+
+Complete Stateless System:
+- Stateless systems are rare
+- State is carried with every request
+- A backend service that relies completely on the input
+  - Check if input param is a prime number
+- JWT (JSON Web Token)

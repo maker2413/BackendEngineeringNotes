@@ -1,1 +1,12 @@
 #+TITLE: Multiplexing Vs Demultiplexing
+
+If you have multiple requests going into an application and shove this all into
+one line of traffic that is called multiplexing. Demultiplexing is the opposite
+of this (breaking out that one line of traffic into separate requests).
+
+A simple example of when this happens is with HTTP/2. With HTTP/1.1 there was no
+multiplexing so when a user sent multiple requests to a server the server got
+each of them all at once.
+
+Connection pooling is another example of multiplexing. Connection pooling is
+done by PostgreSQL Database servers.

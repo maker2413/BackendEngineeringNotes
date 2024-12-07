@@ -11,3 +11,5 @@ industry for communication between applications:
 - 4. :: [[./ServerSentEvents/README.org][Server Sent Events]]
 - 5. :: [[./PubSub/README.org][Publish Subscribe]]
 - 6. :: [[./MultiplexingVsDemultiplexing/README.org][Multiplexing Vs Demultiplexing]]
+- 7. :: [[./StatefulVsStateless/README.org][Stateful Vs Stateless]]
+- 8. :: [[./SidecarPattern/README.org][Sidecar Pattern]]
