@@ -1,2 +1,53 @@
 #+TITLE: HTTP/1.1
 
+So simple and still used today
+
+Client/Server:
+- (Client) Browser, python, or JS application, or any application that makes
+  HTTP request
+- (Server) HTTP Web Server, e.g. IIS, Apache Tomcat, NodeJS, Python Tornado,
+  etc...
+
+An HTTP Request consists of five parts:
+|---------+------+----------|
+| Method  | PATH | Protocol |
+|---------+------+----------|
+| Headers                   |
+|---------+------+----------|
+| Body                      |
+|---------+------+----------|
+
+An HTTP Response also consists of five parts:
+|----------+------+-----------|
+| Protocol | Code | Code Text |
+|----------+------+-----------|
+| Headers                     |
+|----------+------+-----------|
+| Body                        |
+|----------+------+-----------|
+
+HTTP 1.0:
+- New TCP connection with each request
+- Slow
+- Buffering (transfer-encoding:chunked didn't exit)
+- No multi-homed websites (HOST header)
+
+HTTP 1.1
+- Persisted TCP Connection
+- Low Latency & Low CPU Usage
+- Streaming with Chunked transfer
+- Pipelining (disabled by default)
+- Proxying & Multi-homed websites
+
+HTTP/2
+- SPDY
+- Compression
+- Multiplexing
+- Server Push
+- Secure by default
+- Protocol Negotiation during TLS (NPN/ALPN)
+
+HTTP over QUIC (HTTP/3)
+- Replaces TCP with QUIC (UDP with Congestion control)
+- All HTTP/2 features
+- Without HOL
