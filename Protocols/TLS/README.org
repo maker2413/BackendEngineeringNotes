@@ -1,1 +1,16 @@
 #+TITLE: TLS
+
+TLS:
+- Stands for Transport Layer Security
+- Vanilla HTTP
+- HTTPS
+- TLS 1.2 Handshake (two round trips)
+- Diffie Hellman
+- TLS 1.3 Improvements (one round trip can be zero)
+
+Why TLS:
+- We encrypt with symmetric key algorithms
+- We need to exchange the symmetric key
+- Key exchange uses asymmetric key (PKI)
+- Authenticate the server
+- Extensions (SNI, preshared, 0RTT)
