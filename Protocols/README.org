@@ -3,6 +3,38 @@
 This section contains my notes on the "Protocols"
 chapter of [[https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/?kw=fundamentals+of+backend+eng&src=sac][Fundamentals of Backend Engineering]] Course.
 
+What is a protocol?
+- A system that allows two parties to communicate
+- A protocol is designed with a set of properties
+- Depending on the purpose of the protocol
+- TCP, UDP, HTTP, gRPC, FTP
+
+What are the properties of a protocol?
+- Data format
+  - Text based (plain text, JSON, XML)
+  - Binary (protobuf, RESP, HTTP/2, HTTP/3)
+- Transfer mode
+  - Message based (UDP, HTTP)
+  - Stream (TCP, WebRTC)
+- Addressing system
+  - DNS name, IP, MAC
+- Directionality
+  - Bidirectional (TCP)
+  - Unidirectional (HTTP)
+  - Full/Half duplex
+- State
+  - Stateful (TCP, gRPC, apache thrift)
+  - Stateless (UDP, HTTP)
+- Routing
+  - Proxies, Gateways
+- Flow & Congestion control
+  - TCP (Flow and Congestion)
+  - UDP (No control)
+- Error management
+  - Error code
+  - Retries and timeouts
+
 This chapter will go over the various protocols commonly seen in the
 industry:
 - 1. :: [[./OSIModel/README.org][OSI Model]]
+- 2. :: [[./IP/README.org][Internet Protocol]]
