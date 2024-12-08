@@ -1,0 +1,73 @@
+#+TITLE: UDP
+
+UDP:
+- Stands for User Datagram Protocol
+- Layer 4 protocol
+- Ability to address processes in a host using ports
+- Simple protocol to send and receive data
+- Prior communication not required (double edge sword)
+- Stateless - no knowledge is stored on the host
+- 8 byte header Datagram
+
+UDP Use cases:
+- Video streaming
+- VPN
+- DNS
+- WebRTC
+
+Multiplexing and demultiplexing:
+- IP targets hosts only
+- Hosts run many applications each with different requirements
+- Ports now identify the "app" or "process"
+- Sender multiplexes all its applications into UDP
+- Receiver demultiplexes UDP datagrams to each application
+
+Source and Destination Port:
+- App1 on 10.0.0.1 sends data to AppX on 10.0.0.2
+- Destination Port = 53
+- AppX responds back to App1
+- We need Source Port so we know how to send back data
+- Source Port = 5555
+
+Summary:
+- UDP is a simple Layer 4 protocol
+- Uses ports to address processes
+- Stateless
+
+UDP Datagram:
+- UDP Header is only 8 bytes (IPv4)
+- Datagram slides into an IP packet as "data"
+- Port are 16 bit (0 to 65535)
+
+Here is a diagram of a UDP packet:
+[[https://en.wikipedia.org/wiki/User_Datagram_Protocol#UDP_datagram_structure][UDP Diagram]]
+
+UDP Pros and Cons:
+Pros:
+- Simple protocol
+- Header size is small so datagrams are small
+- Uses less bandwidth
+- Stateless
+- Consumes less memory (no state stored in the server/client)
+- Low latency - no handshake, order, retransmission, or guaranteed delivery
+Cons:
+- No acknowledgement
+- No guarantee delivery
+- Connection-less - anyone can send data without prior knowledge
+- No flow control
+- No congestion control
+- No ordered packets
+- Security - can be easily spoofed
+
+Finally let's go over a little demo of a UDP server built in JS. There is also a
+UDP server written in C included in this director. Let's first go over that
+one first.
+
+To try out the C UDP server simply run ~gcc main.go~ in the terminal to compile
+the program. After the program has been compiled it can be run with
+~./a.out~. This will start our UDP server. To interact with the UDP server open
+another terminal and run ~nc -u 127.0.0.1 5501~. This will connect you to the
+server. After that you can type whatever message you want to send and hit
+enter. When you do this you will see the message appear in the terminal we
+started our UDP server. You will also see that the UDP server immediately
+terminates because this C program does not loop after receiving a message.

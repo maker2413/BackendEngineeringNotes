@@ -38,3 +38,11 @@ This chapter will go over the various protocols commonly seen in the
 industry:
 - 1. :: [[./OSIModel/README.org][OSI Model]]
 - 2. :: [[./IP/README.org][Internet Protocol]]
+- 3. :: [[./UDP/README.org][UDP]]
+- 4. :: [[./TCP/README.org][TCP]]
+- 5. :: [[./TLS/README.org][TLS]]
+- 6. :: [[./HTTP1.1/README.org][HTTP/1.1]]
+- 7. :: [[./WebSockets/README.org][WebSockets]]
+- 8. :: [[./HTTP2or3/README.org][HTTP/2 and HTTP/3]]
+- 9. :: [[./gRPC/README.org][gRPC]]
+- 10. :: [[./WebRTC/README.org][WebRTC]]
