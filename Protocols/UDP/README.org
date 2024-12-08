@@ -51,7 +51,7 @@ Pros:
 - Consumes less memory (no state stored in the server/client)
 - Low latency - no handshake, order, retransmission, or guaranteed delivery
 Cons:
-- No acknowledgement
+- No acknowledgment
 - No guarantee delivery
 - Connection-less - anyone can send data without prior knowledge
 - No flow control
@@ -71,3 +71,10 @@ server. After that you can type whatever message you want to send and hit
 enter. When you do this you will see the message appear in the terminal we
 started our UDP server. You will also see that the UDP server immediately
 terminates because this C program does not loop after receiving a message.
+
+Now we will go over the node JS UDP server, which will operate quite
+similarly. With the JS UDP server we can start the server with:
+~node index.mjs~. Then we can connect to our server with a similar netcat
+command: ~nc -u 127.0.0.1 5500~ in a new terminal. After that you can send data
+by typing text and hitting enter. Our JS version of a UDP server does loop so
+the server won't terminate after receiving a message.

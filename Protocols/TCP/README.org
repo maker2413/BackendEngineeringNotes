@@ -1,0 +1,110 @@
+#+TITLE: TCP
+
+TCP:
+- Stands for Transmission Control Protocol
+- Layer 4 protocol
+- Ability to address processes in a host using ports
+- "Controls" the transmission unlike UDP which is a fire hose
+- There is a concept of a connection
+- Requires handshake
+- 20 byte headers segment (can go to 60)
+- Stateful
+
+TCP Use cases:
+- Reliable communication
+- Remote shell
+- Database connections
+- Web communications
+- Any bidirectional communication
+
+TCP Connection:
+- Connection is a Layer 5 (session)
+- Connection is an agreement between client and server
+- Must create a connection to send data
+- Connection is identified by 4 properties
+  - SourceIP-SourcePort
+  - DestinationIP-DestinationPort
+- Can't send data outside of a connection
+- Sometimes called socket of file descriptor
+- Requires a 3-way TCP handshake
+- Segments are sequenced and ordered
+- Segments are acknowledged
+- Lost segments are retransmitted
+
+Multiplexing and demultiplexing:
+- IP targets hosts only
+- Hosts run many applications each with different requirements
+- Ports now identify the "app" or "process"
+- Sender multiplexes all its applications into TCP connections
+- Receiver demultiplexes UDP datagrams to each application based on connection
+  pairs
+
+Connection Establishment:
+- App1 on 10.0.0.1 want to send data to AppX on 10.0.0.2
+- App1 sends SYN to AppX to synchronize sequence numbers
+- AppX sneds SYN/ACK to synchronize its sequence numbers
+- App1 ACKs AppX SYN
+- three way handshake
+
+Sending data:
+- App1 sends data to AppX
+- App1 encapsulate the data in a segment and send it
+- AppX acknowledges the segment
+- Hint: Can App1 send new segment before ACK of old segment arrives?
+
+Acknowledgment:
+- App1 sends segment 1, 2, and 3 to AppX
+- AppX acknowledges all of them with a single ACK 3
+
+Lost data:
+- App1 sends segment 1, 2, and 3 to AppX
+- Seg3 is lost, AppX acknowledges 3
+- App1 resend Seq3
+
+Closing Connection:
+- App1 wants to close the connection
+- App1 sends FIN, AppX ACK
+- AppX sends FIN, App1 ACK
+- Four way handshake
+
+Summary:
+- Stands for Transmission Control Protocol
+- Layer 4 protocol
+- "Controls" the transmission unlike UDP which is a fire hose
+- Introduces Connection concept
+- Retransmission, acknowledgment, guaranteed delivery
+- Stateful - connection has a state
+
+TCP Segment:
+- TCP segment header is 20 bytes and can go up to 60 bytes
+- TCP segment slides into an IP packet as "data"
+- Ports are 16 bit (0 to 65535)
+- Sequences, Acknowledgment, flow control, and more
+
+Here is a diagram of a TCP segment:
+[[https://en.wikipedia.org/wiki/Transmission_Control_Protocol#TCP_segment_structure][TCP Diagram]]
+
+Maximum Segment Size:
+- Segment Size depends on the MTU of the network
+- Usually 512 bytes, but can go up to 1460
+- Default MTU in the internet is 1500 (results is MSS 1460)
+- Jumbo frame MTU goes to 9000 or more
+- MSS can be larger in jumbo frames cases
+
+Just like in the UDP section we have a couple of TCP servers built. There is a
+TCP server written in C included in this director. Let's first go over that one
+first.
+
+To try out the C TCP server simply run ~gcc main.go~ in the terminal to compile
+the program. After the program has been compiled it can be run with
+~./a.out~. This will start our TCP server. To interact with the TCP server open
+another terminal and run ~nc 127.0.0.1 8801~. This will connect you to the
+server. Immediately upon connecting to our TCP server the server responds with
+=Hello= and closes our connection.
+
+Now we will go over the node JS TCP server, which will operate quite
+similarly. With the JS TCP server we can start the server with:
+~node index.mjs~. Then we can connect to our server with a similar netcat
+command: ~nc 127.0.0.1 8800~ in a new terminal. After that we will receive a
+message of =Hello client!= and we can send messages by typing them and hitting
+enter.
