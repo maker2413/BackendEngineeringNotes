@@ -1,3 +1,40 @@
 #+TITLE: WebSockets
 
-  
+WebSocket use cases:
+- Chatting
+- Live Feed
+- Multiplayer Gaming
+- Showing client progress/logging
+
+WebSocket Pros and Cons:
+Pros:
+- Full-duplex (no polling)
+- HTTP compatible
+- Firewall friendly (standard)
+Cons:
+- Proxying is tricky
+- L7 LB challenging (timeouts)
+- Stateful, difficult to horizontally scale
+
+Do you have to use WebSockets
+- No
+- Rule of thumb - do you absolutely need bidirectional communication?
+- Long Polling
+- Server Sent Events
+
+Just like in other sections we have an included JS example in this directory. To
+try out this sample WebSocket application simply run: ~node index.js~ to start
+the WebSocket server. Once the server is started simply open a web browser of
+your choosing and open the console. With the console open paste the following
+code:
+#+begin_src javascript
+  let ws = new WebSocket("ws://localhost:8080");
+  ws.onmessage = message => console.log('${message.data}');
+#+end_src
+
+Now if you open a second tab in your browser and do the same you will see a
+message stating that someone connected. From there you can type messages like
+this to send them:
+#+begin_src javascript
+  ws.send("Hello")
+#+end_src
