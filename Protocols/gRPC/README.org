@@ -1,3 +1,58 @@
 #+TITLE: gRPC
 
 gRPC = google Remote Procedural Call
+
+Client Server Communication
+- SOAP, REST, GraphQL
+- SSE, WebSockets
+- Raw TCP
+
+The Problem with Client Libraries
+- Any communication protocol needs client library for the language of choice.
+  - SOAP Library
+  - HTTP Client Library
+- Hard to maintain and patch client libraries
+  - HTTP/1.1, HTTP/2, new features, security, etc...
+
+Why gRPC was invented?
+- Client Library: One library for popular languages
+- Protocol: HTTP/2 (hidden implementation)
+- Message Format: Protocol buffers as format
+
+gRPC modes:
+- Unary RPC
+- Server streaming RPC
+- Client streaming RPC
+- Bidirectional streaming RPC
+
+Now let's dive into a coding example. Included in this directory is a
+~server.js~ and a ~client.js~ program. Just like in other sections you can start
+the server with: ~node server.js~. Then you can run the client program with:
+~node client.js~ in another terminal.
+
+Personally I hate JavaScript and everything it stands for and I think node was a
+curse put on man by the devil himself so I couldn't get this code to work and I
+have no intention of trying to debug it. Best of luck to you if you want to
+waste time fighting npm. I am going to actually learn gRPC in GoLang on a near
+future date.
+
+gRPC Pros and Cons:
+Pros:
+- Fast & Compact
+- One Client Library
+- Progress Feedback (upload)
+- Cancel Request (HTTP/2)
+- HTTP2/Protobuf
+Cons:
+- Schema
+- Thick Client
+- Proxies
+- Error handling
+- No native browser support
+- Timeouts (pub/sub)
+
+Can you write your own protocol too?
+- Yes you can, Spotify actually made their own called Hermes, but guess what
+- Only you will be using it so...
+- Spotify moved to gRPC not because of a limitation of Hermes, but because with
+  Hermes they were isolated.
