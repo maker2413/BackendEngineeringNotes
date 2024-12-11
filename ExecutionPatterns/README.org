@@ -1,1 +1,35 @@
 #+TITLE: Backend Execution Patterns
+
+This section contains my notes on the "Backend Execution Patterns"
+chapter of [[https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/?kw=fundamentals+of+backend+eng&src=sac][Fundamentals of Backend Engineering]] Course.
+
+This chapter will go over different execution patterns commonly seen in the
+industry:
+- 1. :: [[./ProcessVsThread/README.org][Process vs Thread]]
+- 2. :: [[./BackendConnections/README.org][How the Backend Accepts Connections]]
+- 3. :: [[./SocketData/README.org][Reading and Sending Socket Data]]
+- 4. :: [[./ListenerAcceptorAndReader/README.org][Listener, Acceptor, and Reader]]
+
+Nagle's Algorithm:
+- In the telnet days sending a single byte in a segment was a waste
+- Combine small segments and send them in a single one
+- The client can wait for a full MSS before sending the segment
+- No wasted 40 byte headers (IP + TCP) for a few bytes of data
+- Assume MSS = 1460, A sends 500 bytes
+- 500 < 1460 client waits to fill the segment
+- A sends 1000 bytes, segment fills and sends
+- If there isn't anything to ACK data will be immediately sent
+
+Problem with Nagle's Algorithm:
+- Sending large data causes delay
+- A wants to send 5000 bytes of 1460 MSS
+- 3 full segments of 1460 with 620 bytes
+- 4th segment is not sent!
+- 4th not full segment are only sent when an ACK is received
+
+Disabling Nagle's Algorithm:
+- Most clients today disable Nagle's algorithm
+- I rather get performance than small bandwidth
+- TCP_NODELAY
+- Curl disabled this back in 2016 by default because TLS handshake was slowed
+  down

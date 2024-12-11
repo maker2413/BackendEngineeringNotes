@@ -1,0 +1,7 @@
+#+TITLE: Proxying and Load Balancing
+
+This section contains my notes on the "Proxying and Load Balancing" chapter of
+[[https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/?kw=fundamentals+of+backend+eng&src=sac][Fundamentals of Backend Engineering]] Course. 
+
+This chapter will go over:
+- 1. :: [[./ProxyVsReverseProxy/README.org][Proxy vs Reverse Proxy]]

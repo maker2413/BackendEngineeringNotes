@@ -1,0 +1,12 @@
+#+TITLE: Reading and Sending Socket Data
+
+Send and receive buffers:
+- Client sends data on a connection
+- Kernel puts data in receive queue
+- Kernel ACKs (may delay) and update window
+- Application calls to copy the data
+
+Problems with reading and sending:
+- Backend doesn't read fast enough
+- Receive queue is full
+- Client slows down

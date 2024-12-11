@@ -1,0 +1,33 @@
+#+TITLE: Listener, Acceptor, and Reader
+
+Single Listener/Single Worker Thread:
+[[file:SingleThread.png]]
+
+Single Listener/Multiple Worker Thread:
+[[file:MultiWorkerThread.png]]
+
+Single Listener/Multiple Worker Thread with load balancing:
+[[file:MultiWorkerThreadLoadBalancing.png]]
+
+Multiple Threads Single Socket:
+[[file:MultiThreadSingleSocket.png]]
+
+Multiple Listeners on the same port:
+[[file:MultiListenerSamePort.png]]
+
+What is idempotency?
+- API/postcomment
+- Takes comment and appends it to the table
+- What if the user/proxy retries it?
+- You will have duplicate comments
+  - Very bad for financial systems
+- Idempotent request can be retried without affecting backend
+- Easy implementation send a requestId
+- If requestId has been processed return
+- Also known as idempotency token
+
+Idempotency in HTTP:
+- GET is idempotent
+- POST isn't, but we can make it
+- Browsers and proxies treat GET as idempotent
+- Make sure your GETs are idempotent

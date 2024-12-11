@@ -1,0 +1,42 @@
+#+TITLE: Process vs Thread
+
+What is a Process?
+- A set of instructions
+- Has an isolated section of memory
+- Every process has a PID (Process Identity)
+- Scheduled in the CPU
+
+What is a Thread?
+- Light weight Process (LWP)
+- A set of instructions
+- Shares memory with it's parent process
+- Has an ID
+- Scheduled in the CPU
+
+Single Threaded Process:
+- One Process with a single thread
+- Simple
+- Examples NodeJS
+
+Multi-Processes
+- App has multiple processes
+- Each has it's own memory
+- Examples Nginx/PostgreSQL
+- Take advantage of multi-cores
+- More memory, but isolated
+- Redis backup routine (COW)
+
+Multi Threaded Process:
+- One Process, multiple threads
+- Shared Memory (compete)
+- Take advantage of multi-cores
+- Require less memory
+- Race conditions
+- Locks and Latches (SQL Server)
+- Examples: Apache, Envoy
+
+How many is too many?
+- Too many process/threads is not a good thing
+- CPU context switch
+- Multiple Cores help
+- Rule of thumb -> number of Cores = number of Processes

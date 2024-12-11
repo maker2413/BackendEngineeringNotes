@@ -1,7 +1,7 @@
 #+TITLE: Protocols
 
-This section contains my notes on the "Protocols"
-chapter of [[https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/?kw=fundamentals+of+backend+eng&src=sac][Fundamentals of Backend Engineering]] Course.
+This section contains my notes on the "Protocols" chapter of
+[[https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/?kw=fundamentals+of+backend+eng&src=sac][Fundamentals of Backend Engineering]] Course.
 
 What is a protocol?
 - A system that allows two parties to communicate

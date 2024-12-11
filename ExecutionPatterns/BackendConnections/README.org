@@ -1,0 +1,24 @@
+#+TITLE: How the Backend Accepts Connections
+
+Connection Establishment:
+- TCP Three way handshake
+- SYN/SYN-ACK/ACK
+- But what happens on the backend
+  - Server listens on an address:port
+  - Client connects
+  - Kernel does the handshake, creating a connection
+  - Backend process "Accepts" the connection
+  - Kernel creates a socket & two queues SYN and Accept
+  - Client sends a SYN
+  - Kernel adds this to the SYN queue, replies with SYN/ACK
+  - Client replies with ACK
+  - Kernel finishes the connection
+  - Kernel removes the SYN from the SYN queue
+  - Kernel adds full connection to the Accept queue
+  - Backend accepts the connection, removed from the Accept queue
+  - A file descriptor is created for the connection
+
+Problems with accepting connections:
+- Backend doesn't accept connections fast enough
+- Clients who don't ACK
+- Small backlog

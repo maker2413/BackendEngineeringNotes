@@ -1,5 +1,8 @@
 #+TITLE: Many ways to HTTPS
 
+This section contains my notes on the "Many ways to HTTPS" chapter of
+[[https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/?kw=fundamentals+of+backend+eng&src=sac][Fundamentals of Backend Engineering]] Course.
+
 HTTPS Communication Basics:
 - Establish Connection
 - Establish Encryption
