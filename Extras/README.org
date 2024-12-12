@@ -1,0 +1,29 @@
+#+TITLE: Extras
+
+This section contains my notes on the "Extras" chapter of
+[[https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/?kw=fundamentals+of+backend+eng&src=sac][Fundamentals of Backend Engineering]] Course. 
+
+[[https://medium.com/@hnasr/the-journey-of-a-request-to-the-backend-c3de704de223][Journey of a request to the backend]].
+
+What is JWT?
+- JSON Web Token (JWT)
+- Completely Stateless
+- 3 Parts: Header, Data, Signature
+- Signature encryption can be symmetrical or asymmetrical
+- Symmetrically require same key to create JWT and validate
+- Asymmetrical private key create JWT, public key validates
+
+Pros and Cons of JWT:
+Pros:
+- Stateless
+- Great for APIs
+- Secure
+- Carry useful information (username)
+- Can store information for centralized database
+Cons:
+- Sharing secrets in mircoservices architecture
+- Key management
+- Very tricky to consume correctly
+- Storage of Refresh tokens
+- Token Revocation and Control
+- Insecure implementation (e.g. none alg)

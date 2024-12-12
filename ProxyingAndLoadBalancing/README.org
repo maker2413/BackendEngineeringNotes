@@ -3,5 +3,54 @@
 This section contains my notes on the "Proxying and Load Balancing" chapter of
 [[https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/?kw=fundamentals+of+backend+eng&src=sac][Fundamentals of Backend Engineering]] Course. 
 
-This chapter will go over:
-- 1. :: [[./ProxyVsReverseProxy/README.org][Proxy vs Reverse Proxy]]
+* Proxy vs Reverse Proxy
+  Proxy: https://en.wikipedia.org/wiki/Proxy_server
+
+  A proxy is a server that a client can forward their traffic through so that
+  they know the destination server they are interacting with. The destination
+  server doesn't know about the client as it only interacts with the proxy.
+
+  For instance if you as a client are using a proxy and are trying to interact
+  with [[google.com]] your traffic would first go to the proxy and the proxy would
+  interact with Google on your behalf.
+
+  A reverse proxy is the same concept, but the client doesn't know what server
+  it is interacting with and the server knows the client.
+
+  For instance if you the client are reaching out to company that uses a reverse
+  proxy like [[google.com]] would first hit the reverse proxy that Google runs. The
+  reverse proxy would then send your traffic to one of their final destination
+  servers, but you don't know what server is.
+
+* Layer 4 vs Layer 7 Load Balancing
+  A Load Balancer is just a reverse proxy with logic to distribute traffic
+  evenly amongst multiple servers.
+
+  Layer 4 Load Balancer (Pros and Cons):
+  Pros:
+  - Simpler load balancing
+  - Efficient (no data lookup)
+  - More secure
+  - Works with any protocol
+  - One TCP connection (NAT)
+  Cons:
+  - No smart load balancing
+  - NA microservices
+  - Sticky per connection
+  - No caching
+  - Protocol unaware (can be dangerous) bypass rules
+
+  Layer 7 Load Balancer (Pros and Cons):
+  Pros:
+  - Smart load balancing
+  - Caching
+  - Great for microservices
+  - API Gateway logic
+  - Authentication
+  Cons:
+  - Expensive (looks at data)
+  - Decrypts (terminate TLS)
+  - Two TCP Connections
+  - Must share TLS certificate
+  - Needs to buffer
+  - Needs to understand protocol
