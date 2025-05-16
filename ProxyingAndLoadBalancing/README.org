@@ -54,3 +54,19 @@ This section contains my notes on the "Proxying and Load Balancing" chapter of
   - Must share TLS certificate
   - Needs to buffer
   - Needs to understand protocol
+
+* Layer 4 vs Layer 7 WebSocket Proxying
+  Layer 4 vs Layer 7 WebSocket Proxying
+  - In Layer 4 OSI model we see TCP/IP content
+    - Connections, Ports, IP Addresses
+    - Content remains encrypted (if unencrypted it is not inspected)
+  - In Layer 7 OSI model we see all what's below
+    - Layer 4 + Application layer content
+    - Content is decrypted (TLS termination)
+    - We can read headers, paths, urls etc.
+  - Layer 4 Proxying on WebSockets is done as a tunnel
+  - NGINX intercepts the SYN for a connection and creates another connection on
+    the backend
+  - Any data sent on the frontend connection is tunneled to the backend
+    connection
+  - The backend connection remains private and dedicated to this client.

@@ -1,0 +1,127 @@
+#+TITLE: HTTPS, TLS, Keys, and Certificates
+
+HTTPS:
+- Hypertext transfer protocol (Secure)
+- On top of TLS (Transport Layer Security)
+
+Encryption
+- Encryptions are two types
+- Symmetric: You encrypt with key and decrypt with the same key
+  - One key
+  - Fast but both client and server must have the same key
+- Asymmetric: You encrypt with a key and decrypt with another
+  - Comes in pairs Two keys private and public
+  - Slower but both client and server can have their own public keys
+- We always want to encrypt with Symmetric encryptions
+- Exchange the symmetric key with asymmetric encryption
+
+Symmetric Encryption:
+- Assume both parties have the same key (The most difficult thing)
+- User use the key to encrypt messages
+- Receiver gets the encrypted message
+  - Uses the same key to decrypt
+  - E.g. AES
+
+Public Key vs Private Key Rules
+- Given the Private key you can generate the public key
+- Given the Public key you cannot get the Private key
+
+Encrypting with the Public Key
+- You can encrypt a message with Public Key
+- And only owner of the Private key can decrypt it
+- Proves Authenticity
+
+Encrypting with Private Key
+- You can encrypt a message with the Private key
+  - only the corresponding Public Key can decrypt it
+  - Only owner of the private key could have signed this document
+  - Protects confidentiality, nobody could have messed with it
+
+Certificates
+- We need a way to prove authenticity
+- Generate a pair of public/private key
+- Put a public key in a certificate
+- Put the website name in the certificate
+- Sign the certificate with the private key
+- Meet x509
+- Certificate can be "self signed"
+  - IE Private key signgin the cert belong to the public key
+  - Usually untrusted and used for testing/local
+- Certificates can sign "other certificates"
+  - Creating a trust chain
+  - Issuer name is who issued it
+  - Lets encrypt
+- Ultimately a ROOT cert is found
+  - ROOT certs are always self signed
+  - They are trusted by everyone
+  - Installed with OS root (certificate store)
+
+TLS
+- Transport Layer Security
+- Encrypt using the same key on both client and server
+- For that we need to exchange the key
+- We use public key encryption to exchange the key
+- We share certificate for authentication
+
+Problems with that approach
+- Encrypting the symmetric key with public key is simple
+- But its not perfectly forward
+- Attacker can record all encrypted communications
+- If the server private key is leaked (heart bleed)
+- They can go back and decrypt everything
+- We need ephemeral keys! Meet Diffie Hellman
+
+Diffie Hellman
+- Let us not share the symmetric key at all
+- Let us only share parameters enough to generate it
+- Each party generates the same key
+- Party one generates =X= number (private)
+  - Also generates =g= and =n= (public, random, and prime)
+- Party two generates =Y= number (private)
+- Party 1 sends =g= and =n= to Party 2
+- Anyone can sniff those values fine.
+- Now both has =g= and =n=
+- Party 1 takes =g= to the power of =X % n=
+  - =g^X%n= is now a public value
+  - Cannot be broken to get =X=!
+- Party 2 does the same with =Y=
+  - =g^Y%n= is now a public value
+  - Cannot be broken to get =Y=
+- Both parties share the new values
+- Party 1 takes =Y='s value and raise it to =X=
+  - =(g^Y % n)^X = g^XY % n=
+- Party 2 takes =X='s value and raise it to =Y=
+  - =(g^X % n)^Y = g^XY % n=
+- Both now have the same value =g^XY % n=
+- This is then used as a seed for the key
+
+More problems! Man in the Middle (MITM)
+- This solves perfect secrecy
+- But what if someone intercepts and put their own DH keys
+- MITM replaces =Y='s parameter with their own
+- =X= doesn't know that happened (it's just numbers)
+
+Solve with Singing
+- We bring back public key encryption
+- But only to sign the entire GH message
+- With certificates
+
+There is more to TLS
+- More stuff is sent in the TLS handshake
+- TLS extensions
+  - ALPN
+  - SNI
+- Cipher algorithms
+- Key generation algorithms
+- Key size
+- Digital signature algorithms
+- Client side certificates
+
+Generate Private key and Certificate with OpenSSL
+- OpenSSL is a library for cryptographic operations
+- Generate private key
+  - openssl genrsa -out private-key.pem 2048
+- Generate Certificate x509 (which contains public key)
+  - openssl req -new -x509 -key private-key.pem -out certificate.pem -days 365
+  - Answer questions to fill the x509 fields
+  - Most important is common name, subject alternative which is the website
